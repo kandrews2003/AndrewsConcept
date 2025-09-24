@@ -1,0 +1,32 @@
+/* Base styling for the whole page 
+body {
+  font-family: Arial, Helvetica, sans-serif; /* consistent font */
+  margin: 20px;  /* box model: margin around page */
+  line-height: 1.6;
+  color: #222;   /* default text color */
+}
+
+h1 {
+  color: #0b6e4f; /* green shade */
+}
+h2 {
+  color: #2a8fbd; /* blue shade */
+}
+
+.highlight {
+  color: #ef476f;  /* pinkish red */
+  font-weight: bold;
+}
+
+#special {
+  background-color: #ffd166; /* yellow background */
+  color: #111;
+  padding: 12px;
+  border-radius: 6px;
+  display: inline-block; 
+}
+
+.content {
+  padding: 15px;
+  border: 1px solid #ccc;
+}
