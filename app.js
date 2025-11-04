@@ -24,9 +24,24 @@ console.log(Array.isArray(fruits) && fruits.length === 3);
  ***********************/
 // TODO B1: Implement renderList(arr). Create <li> nodes (no innerHTML) and update #status to "N items".
 function renderList(arr) {
+
+ 
   // 1) select #items and clear it
+
+  const list = document.querySelector("#items");
+  list.textContent = " ";
+}
   // 2) loop over arr, create <li>, set textContent, append
+
+arr.forEach(item => {
+  const li = document.createElement("li");
+  li.textContent = item;
+  list.appendChild(li);
+});
+
   // 3) set #status textContent to `${arr.length} items`
+const status = document.querySelector("#status");
+  status.textContent = `${arr.length} items`;
 }
 
 // Call once with sample data
@@ -44,18 +59,34 @@ const statusEl = document.querySelector("#status");
 // TODO C1: Implement validateName(name) -> returns a message:
 // "< 3" => "Too short (min 3).", "> 30" => "Too long (max 30).", otherwise => "Looks good, <name>!"
 function validateName(name) {
+   if (name.length < 3) {
+    return "Too short (min 3).";
+  } else if (name.length > 30) {
+    return "Too long (max 30).";
+  } else {
+    return `Looks good, ${name}!`;
+  }
+}
   // implement branching with if/else if/else
   return "";
 }
 
 // TODO C2: On form submit, prevent default, call validateName, set #status textContent to the message
 form.addEventListener("submit", (e) => {
-  // ...
+e.preventDefault();
+  const name = input.value.trim();
+  const message = validateName(name);
+  statusEl.textContent = message;
 });
 
 // TODO C3: On input event, show "✓ OK" in #status when valid length, otherwise clear the status
 input.addEventListener("input", () => {
-  // ...
+ const name = input.value.trim();
+  if (name.length >= 3 && name.length <= 30) {
+    statusEl.textContent = "✓ OK";
+  } else {
+    statusEl.textContent = "";
+  }
 });
 
 
@@ -74,18 +105,52 @@ let cache = []; // array of objects from the API
 // Use: https://jsonplaceholder.typicode.com/users
 async function loadData() {
   // try/catch; set aria-live text during states
+
+  try {
+    fetchStatus.textContent = "Loading…";
+    const res = await fetch("https://jsonplaceholder.typicode.com/users");
+    const data = await res.json();
+    cache = data;
+    fetchStatus.textContent = `Loaded ${cache.length} records.`;
+  } catch (err) {
+    fetchStatus.textContent = "Error loading data.";
+    console.error(err);
+  }
 }
 
 // TODO D2: Implement applyFilter(term): return the filtered array based on name/username/email (case-insensitive)
 // If term is empty -> return cache. If term === "sort:az" -> return a sorted copy by name.
 function applyFilter(term) {
-  // ...
-  return [];
+ if (!term) return cache;
+  if (term.toLowerCase() === "sort:az") {
+    return [...cache].sort((a, b) => a.name.localeCompare(b.name));
+  }
+  const lower = term.toLowerCase();
+  return cache.filter(u =>
+    u.name.toLowerCase().includes(lower) ||
+    u.username.toLowerCase().includes(lower) ||
+    u.email.toLowerCase().includes(lower)
+  );
 }
 
 // TODO D3: Implement renderCards(items): create .card for first 10 items; show name + email (or fallback text)
 function renderCards(items) {
-  // ...
+results.textContent = ""; // clear
+  const firstTen = items.slice(0, 10);
+  firstTen.forEach(user => {
+    const card = document.createElement("div");
+    card.className = "card";
+
+    const nameEl = document.createElement("h3");
+    nameEl.textContent = user.name || "No Name";
+
+    const emailEl = document.createElement("p");
+    emailEl.textContent = user.email || "No Email";
+
+    card.appendChild(nameEl);
+    card.appendChild(emailEl);
+    results.appendChild(card);
+  });
 }
 
 // Wire buttons / submit
