@@ -1,26 +1,64 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="styles.css">
-  <title>PA01 - Kyler Andrews</title>
+  <meta charset="utf-8" />
+  <title>Unit 4 Lab — Self-Check</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .ok { color: #0a7a0a; font-weight: 600; }
+    .fail { color: #b00020; font-weight: 600; }
+    .card { border: 1px solid #ddd; border-radius: 8px; padding: 0.75rem; margin: 0.5rem 0; }
+    .row { display:flex; gap:1rem; align-items: center; flex-wrap: wrap; }
+    #checks li { margin: 0.25rem 0; }
+  </style>
+  <script src="app.js" defer></script>
 </head>
-
 <body>
-  <header>
-    <h1 id="special">Welcome to My Page</h1>
-  </header>
+  <main class="container">
+    <h1>Unit 4: JS Foundations → DOM → Fetch</h1>
 
-  <main class="content">
+    <!-- Status / feedback area -->
+    <p id="status" aria-live="polite"></p>
 
-    <p class="highlight">
-      Greeting! I am Kyler Andrews. I am a 4th year computer science scholar from Macon, GA. 
-      I recently completed an internship with the Bibb County School District as a PC Network Intern. 
-    </p>
+    <!-- A) Variables + Operators are in JS only -->
 
-    <p>
-      My favorite colors are orange and purple. I enjoy playing basketball in my free time.
-    </p>
+    <!-- B) DOM List Builder -->
+    <section>
+      <h2>List</h2>
+      <ul id="items"></ul>
+    </section>
+
+    <!-- C) Validation -->
+    <section>
+      <h2>Validate Display Name</h2>
+      <form id="contact">
+        <label>
+          Display Name:
+          <input id="displayName" minlength="3" required />
+        </label>
+        <button id="validateBtn">Validate</button>
+      </form>
+    </section>
+
+    <!-- D) Fetch + Render -->
+    <section>
+      <h2>Search API</h2>
+      <form id="search" class="row">
+        <input id="q" placeholder="search term (try a name, or 'sort:az')" />
+        <button>Search</button>
+        <button type="button" id="loadBtn" title="Load data (first time only)">Load Data</button>
+      </form>
+      <div id="fetchStatus" aria-live="polite"></div>
+      <section id="results"></section>
+    </section>
+
+    <!-- Self-check harness -->
+    <section>
+      <h2>Self-Check</h2>
+      <button id="runChecks">Run Checks</button>
+      <ol id="checks"></ol>
+    </section>
   </main>
 </body>
 </html>
