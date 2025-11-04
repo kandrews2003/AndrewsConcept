@@ -3,16 +3,20 @@
  ***********************/
 // TODO A1: Declare 6 variables: string, number, boolean, array, object, and an undefined variable
 // Use const by default; use let only if you plan to reassign.
-const course = /* string */ ;
-const weeks  = /* number */ ;
-const active = /* boolean */ ;
-const fruits = /* array of strings */ ;
-const user   = /* object with at least name + role */ ;
+const course = "Concept of Advance App Development" ;/* string */ ;
+const weeks  = 14; /* number */ ;
+const active = true; /* boolean */ ;
+const fruits = ["apple", "orange", "banana"];/* array of strings */ ;
+const user   = { name: "Kyler", role: "Student"}; /* object with at least name + role */ ;
 let pending;  // leave this undefined
 
 // TODO A2: Log three expressions that evaluate to true using strict equality and logical operators
 // Example ideas: weeks > 8 && active === true, etc.
 // console.log(...);
+
+console.log(weeks > 7 && active === true);
+console.log(course === "Concept of Advance App Development");
+console.log(Array.isArray(fruits) && fruits.length === 3);
 
 
 /***********************
