@@ -3,26 +3,34 @@
  ***********************/
 // TODO A1: Declare 6 variables: string, number, boolean, array, object, and an undefined variable
 // Use const by default; use let only if you plan to reassign.
-const course = /* string */ ;
-const weeks  = /* number */ ;
-const active = /* boolean */ ;
-const fruits = /* array of strings */ ;
-const user   = /* object with at least name + role */ ;
+const course = "JavaScript Fundamentals";
+const weeks  = 12;
+const active = true;
+const fruits = ["apple", "banana", "cherry"];
+const user   = { name: "Kyler", role: "student" };
 let pending;  // leave this undefined
 
 // TODO A2: Log three expressions that evaluate to true using strict equality and logical operators
 // Example ideas: weeks > 8 && active === true, etc.
 // console.log(...);
-
+console.log(weeks > 8 && active === true);
+console.log(course === "JavaScript Fundamentals" && user.role === "student");
+console.log(Array.isArray(fruits) && fruits.length >= 3);
 
 /***********************
  * B) DOM LIST BUILDER
  ***********************/
 // TODO B1: Implement renderList(arr). Create <li> nodes (no innerHTML) and update #status to "N items".
 function renderList(arr) {
-  // 1) select #items and clear it
-  // 2) loop over arr, create <li>, set textContent, append
-  // 3) set #status textContent to `${arr.length} items`
+  const itemsEl = document.querySelector("#items");
+  itemsEl.textContent = ""; // clear
+  arr.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = item;
+    itemsEl.appendChild(li);
+  });
+  const status = document.querySelector("#status");
+  status.textContent = `${arr.length} items`;
 }
 
 // Call once with sample data
@@ -40,18 +48,30 @@ const statusEl = document.querySelector("#status");
 // TODO C1: Implement validateName(name) -> returns a message:
 // "< 3" => "Too short (min 3).", "> 30" => "Too long (max 30).", otherwise => "Looks good, <name>!"
 function validateName(name) {
-  // implement branching with if/else if/else
-  return "";
+  if (name.length < 3) {
+    return "Too short (min 3).";
+  } else if (name.length > 30) {
+    return "Too long (max 30).";
+  } else {
+    return `Looks good, ${name}!`;
+  }
 }
 
 // TODO C2: On form submit, prevent default, call validateName, set #status textContent to the message
 form.addEventListener("submit", (e) => {
-  // ...
+  e.preventDefault();
+  const msg = validateName(input.value.trim());
+  statusEl.textContent = msg;
 });
 
 // TODO C3: On input event, show "✓ OK" in #status when valid length, otherwise clear the status
 input.addEventListener("input", () => {
-  // ...
+  const val = input.value.trim();
+  if (val.length >= 3 && val.length <= 30) {
+    statusEl.textContent = "✓ OK";
+  } else {
+    statusEl.textContent = "";
+  }
 });
 
 
@@ -64,26 +84,53 @@ const fetchStatus = document.querySelector("#fetchStatus");
 const results = document.querySelector("#results");
 const loadBtn = document.querySelector("#loadBtn");
 
+
 let cache = []; // array of objects from the API
 
 // TODO D1: Implement loadData(): set fetchStatus "Loading…"; fetch users; on success set cache (array) and status "Loaded N records."
 // Use: https://jsonplaceholder.typicode.com/users
 async function loadData() {
-  // try/catch; set aria-live text during states
+  fetchStatus.textContent = "Loading…";
+  try {
+    const res = await fetch("https://jsonplaceholder.typicode.com/users");
+    const data = await res.json();
+    cache = data;
+    fetchStatus.textContent = `Loaded ${cache.length} records.`;
+  } catch (err) {
+    fetchStatus.textContent = "Error loading data.";
+  }
 }
 
 // TODO D2: Implement applyFilter(term): return the filtered array based on name/username/email (case-insensitive)
 // If term is empty -> return cache. If term === "sort:az" -> return a sorted copy by name.
 function applyFilter(term) {
-  // ...
-  return [];
+  if (!term) return cache;
+  if (term.toLowerCase() === "sort:az") {
+    return [...cache].sort((a, b) => a.name.localeCompare(b.name));
+  }
+  const lower = term.toLowerCase();
+  return cache.filter(u =>
+    u.name.toLowerCase().includes(lower) ||
+    u.username.toLowerCase().includes(lower) ||
+    u.email.toLowerCase().includes(lower)
+  );
 }
 
 // TODO D3: Implement renderCards(items): create .card for first 10 items; show name + email (or fallback text)
 function renderCards(items) {
-  // ...
+  results.textContent = "";
+  items.slice(0, 10).forEach(u => {
+    const card = document.createElement("div");
+    card.className = "card";
+    const nameEl = document.createElement("h3");
+    nameEl.textContent = u.name || "No name";
+    const emailEl = document.createElement("p");
+    emailEl.textContent = u.email || "No email";
+    card.appendChild(nameEl);
+    card.appendChild(emailEl);
+    results.appendChild(card);
+  });
 }
-
 // Wire buttons / submit
 loadBtn.addEventListener("click", async () => {
   await loadData();
