@@ -1,12 +1,11 @@
 /* Base styling for the whole page */
 body {
-  font-family: Arial, Helvetica, sans-serif; 
-  margin: 20px;                           
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 20px;
   line-height: 1.6;
-  color: #2b2b2b;                           
+  color: #222;
 }
 
-/* Headings – Royal Purple */
 h1 {
   color: #4b1d6b; /* royal purple */
 }
@@ -15,17 +14,15 @@ h2 {
   color: #5e2b8c; /* lighter royal purple */
 }
 
-/* Class selector – Old Gold text */
 .highlight {
-  color: #c9a227;  /* old gold */
+  color: #c9a227; /* old gold */
   font-weight: bold;
 }
 
-/* ID selector – standout element */
 #special {
   background-color: #c9a227; /* old gold */
-  color: #4b1d6b;           
-  padding: 12px;           
+  color: #4b1d6b;            /* royal purple */
+  padding: 12px;
   border-radius: 6px;
   display: inline-block;
 }
