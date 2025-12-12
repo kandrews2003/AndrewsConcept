@@ -11,7 +11,7 @@
     <h1>Hi, I’m Kyler Andrews</h1>
     <p>
       Greetings, my name is Kyler Andrews. I am a computer science student, and this webpage
-      is my HTML coursework for PA01 and PA02. I’m excited to learn more about web/app
+      is my HTML coursework for PA01 and PA02. I’m excited to learn more about web and app
       development and how I can apply these skills in the job field.
     </p>
 
@@ -19,7 +19,7 @@
 
     <!-- PA02: Form -->
     <h2>Contact Form</h2>
-    <form>
+    <form method="post">
       <p>
         <label for="firstName">First Name:</label><br />
         <input type="text" id="firstName" name="firstName" required />
@@ -42,19 +42,20 @@
 
       <fieldset>
         <legend>Do you like our site?</legend>
-        <label>
-          <input type="radio" name="likeSite" value="yes" required />
+        <label for="likeYes">
+          <input type="radio" id="likeYes" name="likeSite" value="yes" required />
           Yes
         </label>
-        <label>
-          <input type="radio" name="likeSite" value="no" />
+        <br />
+        <label for="likeNo">
+          <input type="radio" id="likeNo" name="likeSite" value="no" />
           No
         </label>
       </fieldset>
 
       <p>
-        <label>
-          <input type="checkbox" name="newsletter" value="subscribed" />
+        <label for="newsletter">
+          <input type="checkbox" id="newsletter" name="newsletter" value="subscribed" />
           Subscribe to newsletter
         </label>
       </p>
@@ -80,7 +81,7 @@
 
     <!-- PA02: Table -->
     <h2>Weekly Schedule (Sample Table)</h2>
-    <table border="1">
+    <table>
       <thead>
         <tr>
           <th>Day</th>
@@ -108,4 +109,3 @@
     </table>
   </body>
 </html>
-
